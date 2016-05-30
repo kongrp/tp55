@@ -64,6 +64,12 @@ class Index extends controller
    			->limit(10)
    			->select();
 
+   		$data = Db::name('data')
+   			->where([
+   				'name' => ['like','%think%'],
+   				'id' => [['in',[1,2,3]],['between','5,8'],'or']
+   				])->limit(10)->select();
+
 
    		//获取最后一条SQL语句
    		echo Db::getLastSql();
@@ -74,9 +80,6 @@ class Index extends controller
    		$data = Db::name('data')
     		->where('id', '=', 1)
    		    ->find();
-
-sdfsdf
-
    	
 
 
