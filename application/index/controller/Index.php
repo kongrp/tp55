@@ -11,7 +11,7 @@ class Index extends controller
     	$data = Db::name('data')
     	->where('id',1)
    		->find();
-   		//以下代码如下
+   		//等同如下代码：
    		// $data = Db::name('data')
     	// 	->where('id', '=', 1)
    		//  ->find();
@@ -70,6 +70,58 @@ class Index extends controller
    				'id' => [['in',[1,2,3]],['between','5,8'],'or']
    				])->limit(10)->select();
 
+      //查询id和status值同时大于0的数据
+      $data = Db::name('data')
+        ->where('id','>',0)
+        ->where('status','>',0)
+        //->where('id&status','>',0)
+        ->limit(10)
+        ->select();
+
+      //查询id或者status值大于0的数据
+      $data = Db::name('data')
+        ->where('id|status','>',0)
+        ->limit(11)
+        ->select();
+        
+      // 获取id为8的data数据的name字段值
+     $name = Db::name('data')
+      ->where('id',8)
+      ->value('name');
+      dump($name);
+
+      //获取某个列中符合条件的语句
+      $list = Db::name('data')
+        ->where('status',1)
+        ->column('name');
+
+      //返回以id为索引的name列数据 
+      $list = Db::name('data')
+        ->where('status',1)
+        ->column('name','id');
+
+
+      //统计data表的数据
+      $count = Db::name('data')
+        ->where('status', 1)
+        ->count();
+
+      //以下为user表操作
+      //统计user表的数据
+      $count = Db::name('user')
+        ->where('status', 1)
+        ->count();
+
+      //统计user表中状态为1的最高分
+      $count = Db::name('user')
+        ->where('status',1)
+        ->max('score'); 
+
+      //返回id大于5且name
+      $data = Db::name('data')
+        ->where('id > :id AND name IS NOT NULL', ['id' =>5])
+        ->select();
+
 
    		//获取最后一条SQL语句
    		echo Db::getLastSql();
@@ -77,9 +129,10 @@ class Index extends controller
    		//查看返回数据
    		dump($data);
 
-   		$data = Db::name('data')
-    		->where('id', '=', 1)
-   		    ->find();
+      // //单独获取name字段值的时候的返回语句
+      // dump($name);
+
+   		
    	
 
 
@@ -101,19 +154,7 @@ class Index extends controller
     	return $this->fetch();
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-    // public function test()
+ // public function test()
     // {
     // 	return '这是一个测试方法。';
     // }
@@ -127,4 +168,5 @@ class Index extends controller
     // {
     // 	return '这是一个private方法。';
     // }
+}
 }
