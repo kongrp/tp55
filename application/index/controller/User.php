@@ -4,10 +4,9 @@ use app\index\model\User as UserModel;
 
 class User
 {
-	//新增用户数据
+	//自增单个用户数据
 	public function add()
 	{
-		//自增单个用户数据
 		$user = New UserModel();
 		$user->nickname = '流年';
 		$user->email = 'thinkphp@qq.com';
@@ -25,11 +24,41 @@ class User
 		{
 			return $user->getError();
 		}
-
-
-
-
-
-		
 	}
+
+	//批量新增用户
+	public function addList()
+	{
+		$user = New UserModel();
+
+		$list = [
+			['nickname'=>'张三','email'=>'zhangsan@qq.com','birthday'=>strtotime('1988-01-15')],
+			['nickname'=>'李四','email'=>'lisi@qq.com','birthday'=>strtotime('1990-09-19')],
+		];
+
+		if($user->saveAll($list))
+		{
+			return '用户批量新增成功';
+		}
+		else
+		{
+			return $user->getError();
+		}
+	} 
+
+
+	//查询用户数据
+	public function read($id='')
+	{
+		$user = UserModel::get($id);
+		
+		// echo $user->nickname.'<br/>';
+		// echo $user->email.'<br/>';
+		// echo date('Y/m/d',$user->birthday).'<br/>';
+		echo $user['nickname'].'<br/>';
+		echo $user['email'].'<br/>';
+		echo date('Y/m/d',$user['birthday']).'<br/>';
+
+	}
+	
 }
