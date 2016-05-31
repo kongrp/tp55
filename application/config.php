@@ -11,7 +11,7 @@
 // $Id$
 
 return [
-    'url_route_on' => true,
+    'url_route_on' => true,	
     'log'          => [
         'type' => 'trace', // 支持 socket trace file
     ],

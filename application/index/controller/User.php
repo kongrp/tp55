@@ -48,16 +48,26 @@ class User
 
 
 	//查询用户数据
-	public function read($id='')
+	//现改为通过用户的email来查询模型数据
+	
+	public function read()
+{
+$user = UserModel::getByEmail('thinkphp@qq.com');
+echo $user->nickname . '<br/>';
+echo $user->email . '<br/>';
+echo date('Y/m/d', $user->birthday) . '<br/>';
+}
+
+	public function read()
 	{
-		$user = UserModel::get($id);
+		$user = UserModel::getByEmail('thinkphp@qq.com');
 		
-		// echo $user->nickname.'<br/>';
-		// echo $user->email.'<br/>';
-		// echo date('Y/m/d',$user->birthday).'<br/>';
-		echo $user['nickname'].'<br/>';
-		echo $user['email'].'<br/>';
-		echo date('Y/m/d',$user['birthday']).'<br/>';
+		echo $user->nickname.'<br/>';
+		echo $user->email.'<br/>';
+		echo date('Y/m/d',$user->birthday).'<br/>';
+		// echo $user['nickname'].'<br/>';
+		// echo $user['email'].'<br/>';
+		// echo date('Y/m/d',$user['birthday']).'<br/>';
 
 	}
 	
