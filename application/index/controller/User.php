@@ -1,6 +1,6 @@
 <?php
 namespace app\index\Controller;
-use app\index\model\User as UserModel;
+use app\index\model\User as UserModel; //设置别名
 
 class User
 {
@@ -10,7 +10,7 @@ class User
 		$user = New UserModel();
 		$user->nickname = '流年';
 		$user->email = 'thinkphp@qq.com';
-		$user->birthday = strtotime('1977-03-05');
+		$user->birthday = '1977-03-05';
 		// //下三行与上三行作用一样
 		// $user['nickname'] = '看云';
 		// $user['email'] = 'kancloud@qq.com';
