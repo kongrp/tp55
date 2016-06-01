@@ -54,8 +54,12 @@ class User
 		$user = UserModel::get($id);
 		echo $user->nickname . '<br/>';
 		echo $user->email . '<br/>';
-		//echo $user->birthday . '<br/>';
-		echo $user->user_birthday . '<br/>';
+		echo $user->birthday . '<br/>';
+		//echo $user->user_birthday . '<br/>';
+		echo $user->status . '<br/>';
+		echo $user->create_time . '<br/>';
+		echo $user->update_time . '<br/>';
+
 	}
 
 	//查询用户数据
