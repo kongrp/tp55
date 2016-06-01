@@ -8,15 +8,15 @@ class User
 	public function add()
 	{
 		$user = New UserModel();
-		$user->nickname = '流年';
-		$user->email = 'thinkphp@qq.com';
-		$user->birthday = '1977-03-05';
+		// $user->nickname = '流年';
+		// $user->email = 'thinkphp@qq.com';
+		// $user->birthday = '1977-03-05';
 		// //下三行与上三行作用一样
 		// $user['nickname'] = '看云';
 		// $user['email'] = 'kancloud@qq.com';
 		// $user['birthday'] = strtotime('1977-03-05');
 
-		if($user->save())
+		if($user->save(input('post.')))
 		{
 			return '用户['.$user->nickname.':'.$user->id.']新增成功';
 		}
@@ -93,13 +93,24 @@ class User
 		//$list = UserModel::all(['status'=>1]);	
 
 		//使用查询构建器
-		$list = UserModel::where('id','<',3)->select();
+		//$list = UserModel::where('id','<',10)->select();
 
+		// 根据查询范围获取用户数据列表
+		//$list = UserModel::scope('email,status')->all();
+
+		//支持多次调用scope方法
+		$list = UserModel::scope('email')
+						->scope('status')
+						->scope(function($query){
+							$query->order('id','desc');
+						})
+						->all();
 		foreach ($list as $user) 
 		{
 			echo $user->nickname . '<br/>';
 			echo $user->email . '<br/>';
-			echo date('Y/m/d',$user->birthday) . '<br/>';
+			echo $user->birthday . '<br/>';
+			echo $user->status .'</br>';
 			echo '---------------<br/>';
 		}
 	}
@@ -158,7 +169,10 @@ class User
 		}
 	}
 
-
+	public function create()
+	{
+		return view('user/create');
+	}
 
 	
 }
