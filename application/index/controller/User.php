@@ -52,14 +52,26 @@ class User
 	public function read($id='')
 	{
 		$user = UserModel::get($id);
-		echo $user->nickname . '<br/>';
-		echo $user->email . '<br/>';
-		echo $user->birthday . '<br/>';
-		//echo $user->user_birthday . '<br/>';
-		echo $user->status . '<br/>';
-		echo $user->create_time . '<br/>';
-		echo $user->update_time . '<br/>';
+		// 读取用户数据并输出数组
+		//dump($user->toArray());
 
+		// 读取用户数据输出JSON
+		echo $user->toJson(JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+		//等同于dump($user->toJson())
+		//等同于只输入：echo UserModel::get($id);
+
+		//若需要隐藏某些属性
+		//dump($user->hidden(['create_time','update_time'])->toArray());
+
+		//echo $user->nickname . '<br/>';
+		//echo $user->email . '<br/>';
+		//echo $user->birthday . '<br/>';
+		//echo $user->user_birthday . '<br/>';
+		//echo $user->status . '<br/>';
+		//echo $user->create_time . '<br/>';
+		//echo $user->update_time . '<br/>';
+
+		
 	}
 
 	//查询用户数据
