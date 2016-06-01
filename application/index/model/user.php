@@ -35,10 +35,10 @@ class User extends Model
 	        'update_time' => 'datetime',
 	    ];
 	// 定义自动完成的属性
-	//protected $insert = ['status' =>1];
+	protected $auto = ['update_time'];
+	protected $insert = ['create_time','status'];
 
-	// 定义自动完成的属性
-	protected $insert = ['status'];
+	
 
 	// status属性修改器
 	protected function setStatusAttr($value, $data)
@@ -53,7 +53,17 @@ class User extends Model
 	return $status[$value];
 	}
 
+	//email查询-查询范围方法的定义
+	public function scopeEmail($query)
+	{
+		$query->where('email','thinkphp@qq.com');
+	}
 
+	//status查询-查询范围方法的定义
+	public function scopeStatus($query)
+	{
+		$query->where('status',1);
+	}
 
 
 }	
