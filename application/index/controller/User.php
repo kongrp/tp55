@@ -45,17 +45,25 @@ class User
 			return $user->getError();
 		}
 	} 
+	
 
+	//按照id查询，read()方法需改为read($id='')
+	//$user = UserModel::get($id);
+	public function read($id='')
+	{
+		$user = UserModel::get($id);
+		echo $user->nickname . '<br/>';
+		echo $user->email . '<br/>';
+		//echo $user->birthday . '<br/>';
+		echo $user->user_birthday . '<br/>';
+	}
 
 	//查询用户数据
-	public function read()
+	public function read1()
 	{
 		//通过用户email来查询
 		//$user = UserModel::getByEmail('thinkphp@qq.com');
 		
-		//按照id查询，read()方法需改为read($id)
-		//$user = UserModel::get($id);
-
 		//根据nickname读取用户数据，以传入数组作为查询条件
 		//$user = UserModel::get(['nickname'=>'xingyun']); 
 
@@ -122,10 +130,22 @@ class User
 	//删除用户信息
 	public function delete($id)
 	{
-		$user = UserModel::get($id);
-		if($user)
+		//给User控制器添加delete方法用于删除用户
+		// $user = UserModel::get($id);
+		// if($user)
+		// {
+		// 	$user->delete();
+		// 	return '删除成功';
+		// }
+		// else
+		// {
+		// 	return '删除不成功';
+		// }
+
+		//直接使用destroy方法删除模型数据
+		$result = UserModel::destroy($id);
+		if($result)
 		{
-			$user->delete();
 			return '删除成功';
 		}
 		else
