@@ -111,29 +111,35 @@ class User extends Controller
 		// 根据查询范围获取用户数据列表
 		//$list = UserModel::scope('email,status')->all();
 
-		//支持多次调用scope方法
-		$list = UserModel::scope('email')
-						->scope('status')
-						->scope(function($query){
-							$query->order('id','desc');
-						})
-						->all();
+		// //支持多次调用scope方法
+		// $list = UserModel::scope('email')
+		// 				->scope('status')
+		// 				->scope(function($query){
+		// 					$query->order('id','desc');
+		// 				})
+		// 				->all();
 
-		//遍历输出用户数据
-		foreach ($list as $user) 
-		{
-			echo $user->nickname . '<br/>';
-			echo $user->email . '<br/>';
-			echo $user->birthday . '<br/>';
-			echo $user->status .'</br>';
-			echo '---------------<br/>';
-		}
+		// //遍历输出用户数据
+		// foreach ($list as $user) 
+		// {
+		// 	echo $user->nickname . '<br/>';
+		// 	echo $user->email . '<br/>';
+		// 	echo $user->birthday . '<br/>';
+		// 	echo $user->status .'</br>';
+		// 	echo '---------------<br/>';
+		// }
 
 		//输出数据集
-		$list = UserModel::all();
+		// $list = UserModel::all();
+		// $this->assign('list',$list);
+		// $this->assign('count',count($list));
+		// return $this->fetch();
+
+		//输出用户的分页信息，每页3条
+		$list = UserModel::paginate(3);
 		$this->assign('list',$list);
-		$this->assign('count',count($list));
 		return $this->fetch();
+		//dump($list->total());
 
 	}
 

@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css" />
 <title>查看用户列表</title>
 <style>
 body{
@@ -41,16 +42,22 @@ border-top:1px solid #eee;
 }
 </style>
 </head>
+
 <body>
-<h2>用户列表（{$count}）</h2>
-{volist name="list" id="user" }
-<div class="info">
+
+
+<h2>用户列表({$list->total()})</h2>
+{volist name="list" id="user"}
 ID：{$user.id}<br/>
 昵称：{$user.nickname}<br/>
 邮箱：{$user.email}<br/>
 生日：{$user.birthday}<br/>
-</div>
+------------------------<br/>
 {/volist}
+{$list->render()}
+
+
+
 <div class="copyright">
 <a title="官方网站" href="http://www.thinkphp.cn">ThinkPHP</a>
 <span>V5</span>
