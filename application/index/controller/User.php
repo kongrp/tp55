@@ -1,8 +1,9 @@
 <?php
 namespace app\index\Controller;
 use app\index\model\User as UserModel; //设置别名
+use think\Controller;
 
-class User
+class User extends Controller
 {
 	//自增单个用户数据
 	public function add()
@@ -117,6 +118,8 @@ class User
 							$query->order('id','desc');
 						})
 						->all();
+
+		//遍历输出用户数据
 		foreach ($list as $user) 
 		{
 			echo $user->nickname . '<br/>';
@@ -125,6 +128,13 @@ class User
 			echo $user->status .'</br>';
 			echo '---------------<br/>';
 		}
+
+		//输出数据集
+		$list = UserModel::all();
+		$this->assign('list',$list);
+		$this->assign('count',count($list));
+		return $this->fetch();
+
 	}
 
 	//update()方法
