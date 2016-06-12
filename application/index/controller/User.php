@@ -13,7 +13,7 @@ class User extends Controller
 		// $user->email = 'thinkphp@qq.com';
 		// $user->birthday = '1977-03-05';
 		// //下三行与上三行作用一样
-		// $user['nickname'] = '看云';
+		$user['nickname'] = '看云';
 		// $user['email'] = 'kancloud@qq.com';
 		// $user['birthday'] = strtotime('1977-03-05');
 
